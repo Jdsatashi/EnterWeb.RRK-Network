@@ -26,6 +26,7 @@ Route::get('home', function(){
 
 Auth::routes();
 
+Route::get('/dashboard', [App\Http\Controllers\PostsController::class, 'index'])-> name('dashboard');
 Route::get('/post/create', [App\Http\Controllers\PostsController::class, 'create'])-> name('create') ;
 Route::post('/post', [PostsController::class, 'store']);
 Route::get('/post/{post}', [App\Http\Controllers\PostsController::class, 'show']);
@@ -35,4 +36,13 @@ Route::get('/profile/{user}/edit', [App\Http\Controllers\ProfileController::clas
 Route::put('/profile/{user}', [App\Http\Controllers\ProfileController::class, 'update'])->name('profile.update');
 
 Route::get('/logout', [LogoutController::class, 'store']) -> name('logout');
+
+Route::post('/post/{post}/likes', [App\Http\Controllers\PostLikeController::class, 'store'])->name('post.likes');
+Route::delete('/post/{post}/likes', [App\Http\Controllers\PostLikeController::class, 'destroy'])->name('post.likesdel');
+
+Route::post('/post/{post}/dislikes', [App\Http\Controllers\DisLikeController::class, 'storing'])->name('post.dislikes');
+Route::delete('/post/{post}/dislikes', [App\Http\Controllers\DisLikeController::class, 'destroying'])->name('post.dislikes');
+
+Route::post('comment/{post}', [App\Http\Controllers\CommentController::class, 'stores'])->name('comment.store');
+
 

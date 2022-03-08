@@ -1,11 +1,11 @@
 @extends('layouts.app')
 @section('content')
 <div class="container">
-  <div class="row">
-    <div class="col-3 p-5">
-        <img src="{{ asset('img/logo-RRK-200.png') }}"  alt="" class="rounded-circle">
+  <div class="row pt-3">
+    <div class="col-lg-4 d-flex justify-content-center">
+        <img src="{{ $user->profile->profileImage() }}"  alt="" class="rounded-circle">
     </div>
-    <div class="col-9 pt-5">
+    <div class="col-lg-8 pt-1">
       <div class="d-flex justify-content-between align-items-baseline">
           <h1>{{ $user->username }}</h1>
       </div>
@@ -25,7 +25,7 @@
 
   <div class="row pt-5">
       @foreach($user->posts as $post)
-      <div class="col-4 p-3">
+      <div class="col-lg-4 p-3">
           <a href="/post/{{ $post->id }}">
           <img src="/storage/{{ $post->image }}" alt="" class="w-100">
           </a>

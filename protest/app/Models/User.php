@@ -56,11 +56,24 @@ class User extends Authenticatable
 
     public function posts()
     {
-        return $this->hasMany(Post::class);
+        return $this->hasMany(Post::class)->orderBy('created_at', 'DESC');
     }
 
     public function profile()
     {
         return $this-> hasOne(profile::class);
     }
+    public function likes()
+    {
+        return $this->hasMany(Like::class);
+    }
+
+    public function dislikes()
+    {
+        return $this->hasMany(Dislike::class);
+    }
+
+    public function comments(){
+            return $this->hasMany(Comment::class);
+        }
 }

@@ -14,6 +14,15 @@ class PostsController extends Controller
         $this-> middleware('auth');
     }
 
+    public function index()
+    {
+        $posts = Post::paginate(5);
+
+        return view('post.dashboard', [
+            'post' => $posts
+        ]);
+    }
+
     public function create()
     {
         return view('post.create');
@@ -47,5 +56,7 @@ class PostsController extends Controller
     {
         return view('post.show', compact('post'));
     }
+
+
 
 }
