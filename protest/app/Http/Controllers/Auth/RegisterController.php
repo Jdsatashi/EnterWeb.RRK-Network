@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
+use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
@@ -11,67 +12,72 @@ use Illuminate\Support\Facades\Validator;
 
 class RegisterController extends Controller
 {
-    /*
-    |--------------------------------------------------------------------------
-    | Register Controller
-    |--------------------------------------------------------------------------
-    |
-    | This controller handles the registration of new users as well as their
-    | validation and creation. By default this controller uses a trait to
-    | provide this functionality without requiring any additional code.
-    |
-    */
-
-    use RegistersUsers;
-
-    /**
-     * Where to redirect users after registration.
-     *
-     * @var string
-     */
-    protected $redirectTo = RouteServiceProvider::HOME;
-
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
+    public function index()
     {
-        $this->middleware('guest');
+        return view('auth.register');
     }
-
-    /**
-     * Get a validator for an incoming registration request.
-     *
-     * @param  array  $data
-     * @return \Illuminate\Contracts\Validation\Validator
-     */
-    protected function validator(array $data)
+    public function store(Request $request)
     {
-        return Validator::make($data, [
+        $data = request()->validate([
             'name' => ['required', 'string', 'max:255'],
             'username' => ['required', 'string', 'max:255'],
+            'role' => ['required', 'integer', 'max:255'],
             'phonenumber'=> ['required', 'string', 'min:8', 'max:14'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'confirmed'],
         ]);
-    }
 
-    /**
-     * Create a new user instance after a valid registration.
-     *
-     * @param  array  $data
-     * @return \App\Models\User
-     */
-    protected function create(array $data)
-    {
-        return User::create([
+        User::create([
             'name' => $data['name'],
             'username' => $data['username'],
+            'role' => $data['role'],
             'phonenumber' => $data['phonenumber'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
+
+        return redirect() -> route('admin');
+    }
+
+    public function edit(User $user)
+    {
+        if(auth()->user()->role == 1){
+            return view('Admin.edit', compact('user'));
+        }
+        else {
+            $this -> authorize('update', $user->profile);
+            return view('Admin.edit', compact('user'));
+        }
+    }
+
+    public function update(User $user)
+    {
+        if(auth()->user()->role == 1) {
+            $data = request() -> validate ([
+                'name' => ['required', 'string', 'max:255'],
+                'role' => [ 'required' ,'integer', 'max:255'],
+                'phonenumber'=> ['required', 'string', 'min:8', 'max:14'],
+            ]);
+
+            $user-> update($data);
+            return redirect() -> route('admin');
+        }
+        else {
+            $data = request() -> validate ([
+                'name' => ['required', 'string', 'max:255'],
+                'username' => ['required' ,'string', 'max:255'],
+                'phonenumber'=> ['required', 'string', 'min:8', 'max:14'],
+                'email' => ['required', 'string', 'email', 'max:255'],
+            ]);
+
+            $user-> update($data);
+            return redirect('/home');
+        }
+    }
+
+    public function destroy(User $user,Request $request)
+    {
+        $request->user()->where('id', $user->id)->delete();
+        return back();
     }
 }

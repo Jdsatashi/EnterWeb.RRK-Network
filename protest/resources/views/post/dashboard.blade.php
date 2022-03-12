@@ -2,12 +2,11 @@
 
 @section('content')
 <div class="container">
-
     @foreach($post as $posts)
     <div class="row pt-2">
         <div class="col-md-6 offset-md-3">
             <a href="/post/{{ $posts->id }}">
-                <img src="/storage/{{ $posts->image }}" class="w-100">
+                <img src="/storage/{{ $posts->file }}" class="w-100">
             </a>
         </div>
     </div>
@@ -23,9 +22,6 @@
                             <span class="text-danger">{{ $posts->user->username }}</span>
                         </a>
                 </h3>
-            </div>
-            <div class="fst-italic fs-5">
-                <p>{{ $posts->topic }}</p>
             </div>
             <div class="fs-5">
                 <p>{{ $posts->content }}</p>
@@ -69,7 +65,7 @@
         <div class="row">
             <div class="col-12 d-flex justify-content-center">
                 {{ $post->links() }}
-            </div>  
+            </div>
         </div>
 
 </div>

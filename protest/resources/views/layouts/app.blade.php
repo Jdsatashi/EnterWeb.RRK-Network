@@ -22,6 +22,30 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <style>
+        #tabledesign {
+            font-family: Arial, Helvetica, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        #tabledesign td, #tabledesign th {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+
+        #tabledesign tr:nth-child(even){background-color: #f2f2f2;}
+
+        #tabledesign tr:hover {background-color: #ddd;}
+
+        #tabledesign th {
+            padding-top: 12px;
+            padding-bottom: 12px;
+            text-align: left;
+            background-color: #04AA6D;
+            color: white;
+        }
+    </style>
 </head>
 <body>
     <div id="app">
@@ -38,24 +62,45 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav me-auto">
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('dashboard') }}">Dashboard</a>
-                        </li>
+                        @auth
+                            @if(Auth::user()->role == 1)
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('admin') }}">Admin page</a>
+                                </li>
+                            @else
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('dashboard') }}">Dashboard</a>
+                            </li>
 
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('create') }}">Create post</a>
-                        </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('create') }}">Create post</a>
+                            </li>
+
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('cate.create') }}">Create category</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('cate.list') }}">Category list</a>
+                                </li>
+
+                            @endif
+                        @endauth
+
                     </ul>
 
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ms-auto">
                         <!-- Authentication Links -->
                         @auth
-                            <li><a class="nav-link" href="profile/{{ Auth::user()->id }}/">Hi, {{ Auth::user()->name }} </a></li>
+                            @if(Auth::user()->role == 1)
+                                <li><a class="nav-link" href="">Hi, Administrator </a></li>
+                                <li><a class="nav-link" href="{{ route('logout') }}">Logout</a></li>
+                            @else
+                            <li><a class="nav-link" href="{{ __('/profile') }}/{{ Auth::user()->id }}/">Hi, {{ Auth::user()->name }} </a></li>
                             <li><a class="nav-link" href="{{ route('logout') }}">Logout</a></li>
+                            @endif
                         @endauth
                         @guest
-                            <li><a class="nav-link" href="{{ route('register') }}">Register</a></li>
                             <li><a class="nav-link" href="{{ route('login') }}">Login</a></li>
                         @endguest
                     </ul>

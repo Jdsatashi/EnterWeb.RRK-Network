@@ -39,21 +39,6 @@
                 </div>
             </div>
 
-            <div class="row justify-content-center">
-                <div class="col-8">
-                    <div class="row mb-3">
-                        <label for="image" class="col-md-4 col-form-label">Post Image</label>
-
-                        <input id="image" type="file" class="form-control @error('image') is-invalid @enderror"
-                               name="image">
-
-                        @error('image')
-                        <strong>{{ $errors->first('image') }}</strong>
-                        @enderror
-                    </div>
-                </div>
-            </div>
-
             <div class="row justify-content-center pt-3">
                 <div class="col-8">
                     <button class="btn btn-outline-success">Save</button>

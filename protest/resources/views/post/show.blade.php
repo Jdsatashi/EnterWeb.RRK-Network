@@ -14,7 +14,6 @@
                         <a href="" class="ps-3">Follow</a>
                         </div>
                     </div>
-                    <h5 class="pt-3 fw-bolder fs-4 fst-italic">Topic: {{ $post->topic }}</h5>
                     <p class="pt-2 fs-5">{{ $post->content }}</p>
                 </div>
                 <div class="d-flex pb-md-3">
@@ -79,7 +78,7 @@
             </div>
 
             <div class="col-md-6 offset-md-1 pt-2">
-                <img src="/storage/{{ $post->image }}" alt="" class="w-100">
+                <img src="/storage/{{ $post->file }}" alt="" class="w-100">
             </div>
         </div>
 

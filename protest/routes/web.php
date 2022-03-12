@@ -1,9 +1,13 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\PostsController;
 use App\Http\Controllers\Auth\LogoutController;
-
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\qacoorController;
+use App\Http\Controllers\qamanagerController;
+use App\Http\Controllers\staffController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,14 +30,33 @@ Route::get('home', function(){
 
 Auth::routes();
 
+Route::middleware(['admin'])->group(function () {
+    Route::get('/register', [App\Http\Controllers\Auth\RegisterController::class, 'index']) -> name('register');
+    Route::post('/register', [App\Http\Controllers\Auth\RegisterController::class, 'store']);
+    Route::delete('/register/{user}', [App\Http\Controllers\Auth\RegisterController::class, 'destroy'])->name(('user.delete'));
+});
+
+Route::get('/admin', [App\Http\Controllers\AdminController::class, 'index'])->name('admin')->middleware('admin');
+Route::get('/qamanager', [App\Http\Controllers\qamanagerController::class, 'index'])->name('qamanager')->middleware('qamanager');
+Route::get('/qacoor', [App\Http\Controllers\qacoorController::class, 'index'])->name('qacoor')->middleware('qacoor');
+Route::get('/staff', [App\Http\Controllers\staffController::class, 'index'])->name('staff')->middleware('staff');
+
+Route::get('/profile/{user}', [App\Http\Controllers\ProfileController::class, 'index'])->name('profile.show');
+Route::get('/profile/{user}/edit', [App\Http\Controllers\ProfileController::class, 'edit'])->name('profile.edit');
+Route::put('/profile/{user}', [App\Http\Controllers\ProfileController::class, 'update'])->name('profile.update');
+
+Route::get('/register/{user}', [App\Http\Controllers\Auth\RegisterController::class, 'edit'])->name('user.edit');
+Route::put('/register/{user}', [App\Http\Controllers\Auth\RegisterController::class, 'update'])->name('user.update');
+
 Route::get('/dashboard', [App\Http\Controllers\PostsController::class, 'index'])-> name('dashboard');
 Route::get('/post/create', [App\Http\Controllers\PostsController::class, 'create'])-> name('create') ;
 Route::post('/post', [PostsController::class, 'store']);
 Route::get('/post/{post}', [App\Http\Controllers\PostsController::class, 'show']);
 
-Route::get('/profile/{user}', [App\Http\Controllers\ProfileController::class, 'index'])->name('profile.show');
-Route::get('/profile/{user}/edit', [App\Http\Controllers\ProfileController::class, 'edit'])->name('profile.edit');
-Route::put('/profile/{user}', [App\Http\Controllers\ProfileController::class, 'update'])->name('profile.update');
+Route::get('/category/list', [App\Http\Controllers\CategoryController::class, 'index'])-> name('cate.list');
+Route::get('/category/create', [App\Http\Controllers\CategoryController::class, 'create'])-> name('cate.create') ;
+Route::post('/category', [App\Http\Controllers\CategoryController::class, 'store']);
+Route::delete('/category/{category}/delete', [App\Http\Controllers\CategoryController::class, 'destroy'])->name('cate.deleted');
 
 Route::get('/logout', [LogoutController::class, 'store']) -> name('logout');
 
@@ -44,5 +67,7 @@ Route::post('/post/{post}/dislikes', [App\Http\Controllers\DisLikeController::cl
 Route::delete('/post/{post}/dislikes', [App\Http\Controllers\DisLikeController::class, 'destroying'])->name('post.dislikes');
 
 Route::post('comment/{post}', [App\Http\Controllers\CommentController::class, 'stores'])->name('comment.store');
+
+
 
 

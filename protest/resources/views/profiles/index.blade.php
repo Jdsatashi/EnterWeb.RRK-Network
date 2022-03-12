@@ -11,20 +11,23 @@
       </div>
         @can ('update', $user -> profile)
             <a href="/profile/{{ $user->id }}/edit">Edit profile</a>
+            <a class="ps-5" href="/register/{{ $user->id }}">Edit user detail</a>
         @endcan
 
-      <div class="d-flex pt-3">
+{{--     <div class="d-flex pt-3">
           <div class="pe-2"><strong>123</strong> posts</div>
           <div class="pe-2"><strong>124</strong> followers</div>
           <div class="pe-2"><strong>125</strong> following</div>
       </div>
-      <div class="pt-3"> {{ $user->profile->titles }} </div>
-      <div> {{ $user->profile->description }} </div>
+--}}
+        <div class="pt-3">Phone numbers: {{ $user->phonenumber }} </div>
+        <div class="pt-3">Title: {{ $user->profile->titles }} </div>
+      <div class="pt-1">Description: {{ $user->profile->description }} </div>
     </div>
   </div>
 
   <div class="row pt-5">
-      @foreach($user->posts as $post)
+      @foreach( $user->posts as $post)
       <div class="col-lg-4 p-3">
           <a href="/post/{{ $post->id }}">
           <img src="/storage/{{ $post->image }}" alt="" class="w-100">

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Intervention\Image\Facades\Image;
 use App\Models\Post;
 use App\Models\User;
+use App\Models\Category;
 
 class PostsController extends Controller
 {
@@ -28,25 +29,26 @@ class PostsController extends Controller
         return view('post.create');
     }
 
-    public function store()
+    public function store(Category $cate)
     {
+        $cateid = $cate->id;
         $data = request()->validate([
-            'topic' => 'required',
             'content' => 'required',
-            'image' => 'required'
+            'category_id' => 'required',
+            'file' => 'required',
         ]);
 
         #auth()->user()->posts()->create($data);
 
-        $imagePath = request('image')-> store('uploads','public');
+        $imagePath = request('file')-> store('uploads','public');
 
         $image = Image::make(public_path("storage/{$imagePath}"))->fit(1000,1000);
         $image -> save();
 
         auth()->user()->posts()->create([
-            'topic'=> $data['topic'],
             'content' => $data['content'],
-            'image' => $imagePath,
+            'category_id' => $data[$cateid],
+            'file' => $imagePath,
         ]);
         return redirect('/profile/' . auth()->user()->id);
 

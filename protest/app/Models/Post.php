@@ -13,9 +13,9 @@ class Post extends Model
     use Notifiable;
 
     protected $fillable = [
-        'topic',
         'content',
-        'image'
+        'category_id',
+        'file'
     ];
     public function user()
     {
@@ -42,5 +42,8 @@ class Post extends Model
 
     public function comments(){
         return $this->hasMany(Comment::class);
+    }
+    public function category(){
+        return $this->hasMany(Category::class);
     }
 }
