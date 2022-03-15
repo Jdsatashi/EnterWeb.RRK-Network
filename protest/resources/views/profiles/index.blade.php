@@ -30,10 +30,17 @@
       @foreach( $user->posts as $post)
       <div class="col-lg-4 p-3">
           <a href="/post/{{ $post->id }}">
-          <img src="/storage/{{ $post->image }}" alt="" class="w-100">
-          </a>
-      </div>
-      @endforeach
-  </div>
+           <img src="/storage/{{ $post->file }}" alt="" class="w-100">
+
+{{--
+<iframe src="/storage/{{ $post->file }}" alt="" class="w-100">
+<object data='/storage/{{ $post->file }}'
+            type='application/pdf'
+            width='100%'
+            height='700px'>        This code can get download -->
+</a>
+</div>
+@endforeach
+</div>
 </div>
 @endsection

@@ -48,10 +48,10 @@ Route::put('/profile/{user}', [App\Http\Controllers\ProfileController::class, 'u
 Route::get('/register/{user}', [App\Http\Controllers\Auth\RegisterController::class, 'edit'])->name('user.edit');
 Route::put('/register/{user}', [App\Http\Controllers\Auth\RegisterController::class, 'update'])->name('user.update');
 
-Route::get('/dashboard', [App\Http\Controllers\PostsController::class, 'index'])-> name('dashboard');
-Route::get('/post/create', [App\Http\Controllers\PostsController::class, 'create'])-> name('create') ;
-Route::post('/post', [PostsController::class, 'store']);
-Route::get('/post/{post}', [App\Http\Controllers\PostsController::class, 'show']);
+Route::get('/dashboard', [PostsController::class, 'index'])-> name('dashboard');
+Route::get('/post/create', [PostsController::class, 'create'])-> name('create') ;
+Route::post('/post', [PostsController::class, 'store'])->name('post');
+Route::get('/post/{post}', [PostsController::class, 'show']);
 
 Route::get('/category/list', [App\Http\Controllers\CategoryController::class, 'index'])-> name('cate.list');
 Route::get('/category/create', [App\Http\Controllers\CategoryController::class, 'create'])-> name('cate.create') ;

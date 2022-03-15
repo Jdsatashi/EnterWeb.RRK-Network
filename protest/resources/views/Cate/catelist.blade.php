@@ -3,6 +3,11 @@
     <div class="container-md">
         <div class="col-md-8 offset-md-2">
             <h3 class="p-3">This is the Category</h3>
+            @if(session()->has('message'))
+                <div class="alert alert-success">
+                    {{ session()->get('message') }}
+                </div>
+            @endif
             <div class="col-2 offset-5 pb-2">
                 <a href="{{ route('cate.create') }}">
                     <button class="btn-primary">Create category</button>

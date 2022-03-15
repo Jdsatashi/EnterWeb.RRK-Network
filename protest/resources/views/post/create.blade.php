@@ -6,39 +6,65 @@
            <div class="card pt-2">
               <div class="card-header">{{ __('Register') }}</div>
                 <div class="card-body">
-                    <form action="/post" enctype="multipart/form-data" method="post">
+                    <form action="{{ __('/post') }}" enctype="multipart/form-data" method="post">
                     @csrf
 
-        <div class="row justify-content-center">
-            <div class="col-6">
-                <div class="row mb-3">
-                    <label for="content" class="col-md-4 col-form-label">Post content</label>
+                        <div class="row justify-content-center">
+                            <div class="col-6">
+                                <div class="row mb-3">
+                                    <label for="author" class="col-md-4 col-form-label">{{ __('Author name') }}</label>
 
-                    <input id="content" type="text" class="form-control @error('content') is-invalid @enderror"
-                           name="content" value="{{ old('content') }}" required autocomplete="content" autofocus>
+                                    <select id="author" name="author" class="form-select" aria-label="Default select example">
+                                        <option selected>Upload as anonymous or your name</option>
+                                            <option value="{{ Auth::user()->username }}">
+                                                {{ Auth::user()->username }}
+                                            </option>
+                                        <option value="{{ __('anonymous') }}">
+                                            Anonymous
+                                        </option>
+                                    </select>
 
-                    @error('content')
-                    <span class="invalid-feedback" role="alert">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row justify-content-center">
+                            <div class="col-6">
+                                <div class="row mb-3">
+                                    <label for="author" class="col-md-4 col-form-label">{{ __('Author') }}</label>
+
+                                    <select id="category_id" name="category_id" class="form-select" aria-label="Default select example">
+                                        <option selected>Select toptic catagories</option>
+
+                                        @foreach(\App\Models\Category::all() as $category)
+                                            <option value="{{ $category->id }}">
+                                                {{ $category->catename }} + {{ $category->id }}
+                                            </option>
+
+                                        @endforeach
+                                    </select>
+
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="row justify-content-center">
+                            <div class="col-6">
+                                <div class="row mb-3">
+                                    <label for="content" class="col-md-4 col-form-label">Post content</label>
+
+                                    <input id="content" type="text" class="form-control @error('content') is-invalid @enderror"
+                                           name="content" value="{{ old('content') }}" required autocomplete="content" autofocus>
+
+                                    @error('content')
+                                    <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
-                    @enderror
-                </div>
-            </div>
-        </div>
-
-              <div class="row justify-content-center">
-                    <div class="col-6">
-                         <div class="row mb-3">
-            <label for="role" class="col-md-4 col-form-label">{{ __('Role') }}</label>
-
-                <select id="role" name="role" class="form-select" aria-label="Default select example">
-                    <option selected>Select toptic catagories</option>
-                    <option value="{{ $category->id }}">{{ $category->catename }}</option>
-                </select>
-
+                                    @enderror
+                                </div>
+                            </div>
                         </div>
-                    </div>
-              </div>
 
         <div class="row justify-content-center">
             <div class="col-6">
@@ -58,7 +84,7 @@
 
     <div class="row justify-content-center pt-2">
         <div class="col-4 offset-3">
-            <button class="btn btn-outline-success">Post</button>
+            <button type="submit" class="btn btn-primary">Post</button>
         </div>
     </div>
     </form>

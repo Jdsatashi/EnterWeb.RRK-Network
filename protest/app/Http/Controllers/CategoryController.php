@@ -25,9 +25,16 @@ class CategoryController extends Controller
         ]);
         return redirect()->route('cate.list');
     }
-    public function destroy(Category $category)
+    public function destroy($id)
     {
-        Category::where('id', $category->id)->DELETE();
-        return back();
+        $cate = Category::find($id);
+
+        if ($cate) {
+            $cate->delete();
+            return redirect('/category/list')->with('message', 'Category Deleted');
+        }
+        else{
+            return back()->with('message', 'Something went wrong, please try again');
+        }
     }
 }

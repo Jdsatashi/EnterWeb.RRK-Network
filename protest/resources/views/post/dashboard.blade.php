@@ -2,11 +2,16 @@
 
 @section('content')
 <div class="container">
+    <div class="row pt-2">
+        <div class="col-6 d-flex justify-content-center offset-3">
+            <h3>Posts available: {{ $post->count() }}</h3>
+        </div>
+    </div>
     @foreach($post as $posts)
     <div class="row pt-2">
-        <div class="col-md-6 offset-md-3">
+        <div class="col-md-4 offset-md-4">
             <a href="/post/{{ $posts->id }}">
-                <img src="/storage/{{ $posts->file }}" class="w-100">
+                <img src="/storage/{{ $posts->file }}" class="border border-5 w-100">
             </a>
         </div>
     </div>
@@ -14,14 +19,20 @@
         <div class="col-md-6 offset-md-3">
             <div class="d-flex">
                 <div>
-                    <img src="{{ $posts->user->profile->profileImage() }}" alt=""
+                    <img src="{{ asset('img/logo-RRK.png') }}" alt=""
                          class="rounded-circle" style="max-width: 50px">
                 </div>
-                <h3 class="text-danger fw-bold ps-2 pt-2">
-                        <a href="/profile/{{ $posts->user->id }}">
-                            <span class="text-danger">{{ $posts->user->username }}</span>
+                <div class="d-flex">
+                    <h3 class="text-danger fw-bold ps-2 pt-2">
+                        <a href="">
+                            <span class="text-danger">{{ $posts->author }}</span>
                         </a>
-                </h3>
+                    </h3>
+                    {{-- <span>{{ $posts-> create_at }}</span>--}}
+                </div>
+            </div>
+            <div class="fst-italic">
+                <p>Category: {{ $posts->category->catename }}</p>
             </div>
             <div class="fs-5">
                 <p>{{ $posts->content }}</p>
