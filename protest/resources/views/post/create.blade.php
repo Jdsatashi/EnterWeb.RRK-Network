@@ -8,20 +8,23 @@
                 <div class="card-body">
                     <form action="{{ __('/post') }}" enctype="multipart/form-data" method="post">
                     @csrf
-
+                    @if(session('errors'))
+                        @foreach($errors as $error)
+                            <li>{{ $error }}</li>
+                            @endforeach
+                        @endif
                         <div class="row justify-content-center">
                             <div class="col-6">
                                 <div class="row mb-3">
                                     <label for="author" class="col-md-4 col-form-label">{{ __('Author name') }}</label>
 
                                     <select id="author" name="author" class="form-select" aria-label="Default select example">
-                                        <option selected>Upload as anonymous or your name</option>
-                                            <option value="{{ Auth::user()->username }}">
-                                                {{ Auth::user()->username }}
-                                            </option>
                                         <option value="{{ __('anonymous') }}">
                                             Anonymous
                                         </option>
+                                            <option value="{{ Auth::user()->username }}">
+                                                {{ Auth::user()->username }}
+                                            </option>
                                     </select>
 
                                 </div>
@@ -31,7 +34,7 @@
                         <div class="row justify-content-center">
                             <div class="col-6">
                                 <div class="row mb-3">
-                                    <label for="author" class="col-md-4 col-form-label">{{ __('Author') }}</label>
+                                    <label for="author" class="col-md-4 col-form-label">{{ __('Category') }}</label>
 
                                     <select id="category_id" name="category_id" class="form-select" aria-label="Default select example">
                                         <option selected>Select toptic catagories</option>

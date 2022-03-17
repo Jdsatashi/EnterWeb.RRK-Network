@@ -9,8 +9,11 @@
                         <img src="{{ asset('img/logo-RRK.png') }}" alt=""
                         class="rounded-circle" style="max-width: 50px">
                     </div>
-                        <div class="ps-3 pt-2 fs-5 fw-bold"><a href="">
+                        <div class="ps-3 pt-2 fs-5 fw-bold d-flex"><a href="">
                                 <span class="text-danger"> {{ $post->author }}</span></a>
+                            @if(Auth::User()->id == $post->user_id)
+                                <a href="{{ ('/post/edit/') }}{{ $post->id }}" class="ps-5">Edit profile</a>
+                            @endif
                         </div>
                     </div>
                     <p class="pt-2 fs-5">{{ $post->content }}</p>
@@ -26,12 +29,11 @@
                                     <label for="writer" class="col-md-4 col-form-label">{{ __('Writer name') }}</label>
 
                                     <select id="writer" name="writer" class="form-select" aria-label="Default select example">
-                                        <option selected>Upload as anonymous or your name</option>
-                                        <option value="{{ Auth::user()->username }}">
-                                            {{ Auth::user()->username }}
-                                        </option>
                                         <option value="{{ __('anonymous') }}">
                                             Anonymous
+                                        </option>
+                                        <option value="{{ Auth::user()->username }}">
+                                            {{ Auth::user()->username }}
                                         </option>
                                     </select>
                                     <div class="pt-2">
@@ -50,19 +52,33 @@
                     </div>
                 <div class="pt-md-2">
                 <div class="border border-3 p-md-2">
-                    <h4>Comments ({{ $post->comments->count() }})</h4>
-                    @foreach($post->comments as $cmt)
+                    @php
+                        $comment = \App\Models\Comment::where('post_id', $post->id)
+                                    ->orderBy('created_at', 'DESC')
+                                    ->paginate(3);
+                    @endphp
+                    <div class="d-flex ">
+                        <div class="mr-auto p-2">
+                            <h4>Comments ({{ $post->comments->count() }})</h4>
+                        </div>
+                        <div class="ps-2">
+                            {{ $comment->links() }}
+                        </div>
+                    </div>
+                    @foreach($comment as $cmt)
                         <div class="border boder-2 p-md-1">
                         <p1 class="text-danger fw-bold"><a href="">{{ $cmt->writer }}</a></p1> <br>
                         <p1>{{ $cmt->comment }}</p1> <br>
                         </div>
                     @endforeach
+
                 </div>
             </div>
             </div>
 
             <div class="col-md-6 offset-md-1 pt-2 ">
-                <img src="/storage/{{ $post->file }}" alt="" class="border border-dark w-100">
+                <iframe src="/storage/{{ $post->file }}" alt="" height="600" class="w-100">
+                </iframe>
                 <div class="d-flex justify-content-center pt-md-3">
                     @if($post->likeBy(auth()->user()))
                         <form action="{{ route('post.likes', $post->id) }}" method="post" class="pe-md-2 pb-md-2">

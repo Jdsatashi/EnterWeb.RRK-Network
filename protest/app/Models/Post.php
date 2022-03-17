@@ -16,8 +16,13 @@ class Post extends Model
         'category_id',
         'author',
         'content',
+        #'image',
         'file'
     ];
+    /**
+     * @var mixed
+     */
+
     public function user()
     {
         return $this->belongsTo(User::class);

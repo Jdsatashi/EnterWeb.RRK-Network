@@ -20,27 +20,33 @@
           <div class="pe-2"><strong>125</strong> following</div>
       </div>
 --}}
-        <div class="pt-3">Phone numbers: {{ $user->phonenumber }} </div>
-        <div class="pt-3">Title: {{ $user->profile->titles }} </div>
+        <div class="pt-2">Phone numbers: {{ $user->phonenumber }} </div>
+        <div class="pt-1">Title: {{ $user->profile->titles }} </div>
       <div class="pt-1">Description: {{ $user->profile->description }} </div>
+        <div class="pt-1">Description: {{ $user->posts->count() }} </div>
     </div>
   </div>
+
+
+              {{--
 
   <div class="row pt-5">
       @foreach( $user->posts as $post)
       <div class="col-lg-4 p-3">
-          <a href="/post/{{ $post->id }}">
-           <img src="/storage/{{ $post->file }}" alt="" class="w-100">
+              <iframe src="/storage/{{ $post->file }}" alt="" height="400" width="400">
+              </iframe>
+          <div class="justify-content-between">
+              <a href="/post/{{ $post->id }}"><button class="btn btn-primary" >View post</button></a>
+          </div>
+      </div>
+      @endforeach
+              <iframe src="/storage/{{ $post->file }}" alt="" class="w-100">
+              <object data='/storage/{{ $post->file }}'
+                          type='application/pdf'
+                          width='100%'
+                          height='700px'>        This code can get download --}}
 
-{{--
-<iframe src="/storage/{{ $post->file }}" alt="" class="w-100">
-<object data='/storage/{{ $post->file }}'
-            type='application/pdf'
-            width='100%'
-            height='700px'>        This code can get download -->
-</a>
-</div>
-@endforeach
+
 </div>
 </div>
 @endsection

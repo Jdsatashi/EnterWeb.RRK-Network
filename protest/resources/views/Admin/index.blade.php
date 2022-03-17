@@ -4,7 +4,7 @@
     <div class="col-md-12">
     <h3 class="p-5">This is the Admin page</h3>
         <a href="{{ route('register') }}">
-            <button class="btn-primary">
+            <button class="btn btn-primary">
 
             Create account
 
@@ -36,7 +36,7 @@
                 <form action="{{ route('user.delete', $users->id) }}" method="post" class="pe-md-2 pb-md-2">
                     @csrf
                     @method('DELETE')
-                    <button type="submit" class="btn btn-primary">Delete</button>
+                    <button type="submit" class="btn-primary">Delete</button>
                 </form>
             </td>
         </tr>

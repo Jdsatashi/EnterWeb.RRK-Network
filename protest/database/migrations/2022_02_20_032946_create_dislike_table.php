@@ -15,8 +15,8 @@ class CreateDislikeTable extends Migration
     {
         Schema::create('dislikes', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('post_id');
+            $table->foreignId('user_id')->constrained()->nullable()->constrained()->onDelete('set null');
+            $table->foreignId('post_id')->nullable()->constrained()->onDelete('set null');
             $table->timestamps();
 
             $table->index('user_id');

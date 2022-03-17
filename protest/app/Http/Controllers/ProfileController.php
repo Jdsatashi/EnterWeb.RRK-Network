@@ -45,7 +45,7 @@ class ProfileController extends Controller
             $imageArray ?? []
         ));
 
-        return redirect("/profile/{$user->id}");
+        return redirect("/profile/{Auth()::user->id}");
     }
 
 }

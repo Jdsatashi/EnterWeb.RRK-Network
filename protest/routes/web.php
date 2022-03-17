@@ -43,7 +43,7 @@ Route::get('/staff', [App\Http\Controllers\staffController::class, 'index'])->na
 
 Route::get('/profile/{user}', [App\Http\Controllers\ProfileController::class, 'index'])->name('profile.show');
 Route::get('/profile/{user}/edit', [App\Http\Controllers\ProfileController::class, 'edit'])->name('profile.edit');
-Route::put('/profile/{user}', [App\Http\Controllers\ProfileController::class, 'update'])->name('profile.update');
+Route::put('/profile/{user}/update', [App\Http\Controllers\ProfileController::class, 'update'])->name('profile.update');
 
 Route::get('/register/{user}', [App\Http\Controllers\Auth\RegisterController::class, 'edit'])->name('user.edit');
 Route::put('/register/{user}', [App\Http\Controllers\Auth\RegisterController::class, 'update'])->name('user.update');
@@ -51,7 +51,10 @@ Route::put('/register/{user}', [App\Http\Controllers\Auth\RegisterController::cl
 Route::get('/dashboard', [PostsController::class, 'index'])-> name('dashboard');
 Route::get('/post/create', [PostsController::class, 'create'])-> name('create') ;
 Route::post('/post', [PostsController::class, 'store'])->name('post');
-Route::get('/post/{post}', [PostsController::class, 'show']);
+Route::get('/post/{post}', [PostsController::class, 'show'])->name('post.show');
+Route::get('/post/edit/{post}', [PostsController::class, 'edit'])->name('post.edit');
+Route::put('/post/update/{post}', [PostsController::class, 'update'])->name('post.update');
+Route::delete('/post/delete/{post}', [PostsController::class, 'destroy'])->name('post.delete');
 
 Route::get('/category/list', [App\Http\Controllers\CategoryController::class, 'index'])-> name('cate.list');
 Route::get('/category/create', [App\Http\Controllers\CategoryController::class, 'create'])-> name('cate.create') ;
@@ -67,7 +70,6 @@ Route::post('/post/{post}/dislikes', [App\Http\Controllers\DisLikeController::cl
 Route::delete('/post/{post}/dislikes', [App\Http\Controllers\DisLikeController::class, 'destroying'])->name('post.dislikes');
 
 Route::post('comment/{post}', [App\Http\Controllers\CommentController::class, 'stores'])->name('comment.store');
-
 
 
 
