@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\Category;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Carbon;
 
 class CategorySeeder extends Seeder
 {
@@ -14,11 +15,14 @@ class CategorySeeder extends Seeder
      */
     public function run()
     {
+        $date = Carbon::tomorrow();
         Category::create([
-           'catename' => 'Trending'
+           'catename' => 'Trending',
+            'closure_date' => $date,
         ]);
         Category::create([
-            'catename' => 'Something fun'
+            'catename' => 'Something fun',
+            'closure_date' => $date,
         ]);
     }
 }

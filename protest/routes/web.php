@@ -55,11 +55,16 @@ Route::get('/post/{post}', [PostsController::class, 'show'])->name('post.show');
 Route::get('/post/edit/{post}', [PostsController::class, 'edit'])->name('post.edit');
 Route::put('/post/update/{post}', [PostsController::class, 'update'])->name('post.update');
 Route::delete('/post/delete/{post}', [PostsController::class, 'destroy'])->name('post.delete');
+Route::get('/dashboard/top', [PostsController::class, 'topidea'])->name('post.top');
 
 Route::get('/category/list', [App\Http\Controllers\CategoryController::class, 'index'])-> name('cate.list');
 Route::get('/category/create', [App\Http\Controllers\CategoryController::class, 'create'])-> name('cate.create') ;
 Route::post('/category', [App\Http\Controllers\CategoryController::class, 'store']);
 Route::delete('/category/{category}/delete', [App\Http\Controllers\CategoryController::class, 'destroy'])->name('cate.deleted');
+Route::get('/category/edit/{category}', [App\Http\Controllers\CategoryController::class, 'edit'])->name('cate.edit');
+Route::put('/category/update/{category}', [App\Http\Controllers\CategoryController::class, 'update'])->name('cate.update');
+
+Route::post('comment/{post}', [App\Http\Controllers\CommentController::class, 'stores'])->name('comment.store');
 
 Route::get('/logout', [LogoutController::class, 'store']) -> name('logout');
 
@@ -69,7 +74,6 @@ Route::delete('/post/{post}/likes', [App\Http\Controllers\PostLikeController::cl
 Route::post('/post/{post}/dislikes', [App\Http\Controllers\DisLikeController::class, 'storing'])->name('post.dislikes');
 Route::delete('/post/{post}/dislikes', [App\Http\Controllers\DisLikeController::class, 'destroying'])->name('post.dislikes');
 
-Route::post('comment/{post}', [App\Http\Controllers\CommentController::class, 'stores'])->name('comment.store');
-
+Route::get('/sendmail', [\App\Http\Controllers\MailController::class, 'sendEmail']);
 
 

@@ -5,8 +5,10 @@
             @csrf
 
             <div class="row justify-content-center">
-                <div class="col-8">
-                    <div class="row mb-3">
+                <div class="col-md-6 pt-2">
+                    <div class="card pt-2">
+                        <div class="card-header">{{ __('Create category') }}</div>
+                        <div class="card-body">
                         <label for="catename" class="col-md-4 col-form-label">Category topic</label>
 
                         <input id="catename" type="text" class="form-control @error('catename') is-invalid @enderror"
@@ -17,15 +19,20 @@
                                             <strong>{{ $message }}</strong>
                                         </span>
                         @enderror
+                        </div>
+
+                        <div class="row mb-0 pb-3">
+                            <div class="col-md-4 offset-md-5">
+                                <button type="submit" class="btn btn-primary">
+                                    {{ __('Create') }}
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <div class="row justify-content-center pt-3">
-                <div class="col-8">
-                    <button class="btn btn-outline-success">Post</button>
-                </div>
-            </div>
+
         </form>
     </div>
 @endsection

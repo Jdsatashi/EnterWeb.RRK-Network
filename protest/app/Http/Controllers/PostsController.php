@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\TestMail;
+use App\Models\Like;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Validation\Rule;
 use Intervention\Image\Facades\Image;
 use App\Models\Post;
@@ -25,7 +29,30 @@ class PostsController extends Controller
         $post = Post::orderBy('created_at', 'DESC')
             ->paginate(5);
 
-        return view('post.dashboard', compact('post'));
+        return view('post.dashboard', [
+            'post' => $post,
+        ]);
+    }
+
+    public function topidea(Like $like, Post $post, User $user)
+    {
+        #$date = new Carbon(request('date'));
+
+
+            /*$like = $post->likes->count();
+            DB::table('Post')->where('id', $post->id)->chunk(100, function($user) {
+
+            });*/
+        #SELECT count(*), user_id FROM likes GROUP BY user_id ORDER BY count(*) DESC
+
+            /* 'user' => ['array', function($field, $value){
+                $count = User::Query()->whereIn('id', $value)->count();
+                return $count($value) === $count;
+            }]; */
+
+        $post = Likes::groupby('post_id')->orderby('count', 'DESC')->count('*');
+
+        return view('post.dashboardlike', compact('post'));
     }
 
     public function create()
@@ -33,7 +60,7 @@ class PostsController extends Controller
         return view('post.create');
     }
 
-    public function store(Request $req)
+    public function store(Request $req, User $user)
     {
         $data = request()->validate([
             'category_id' => ['required', Rule::exists('categories','id')],
@@ -48,6 +75,20 @@ class PostsController extends Controller
                 #$imagePath = request('image')-> store('uploads','public');
                 #$image = Image::make(public_path("storage/{$imagePath}"))->fit(1000,1000);
                 #$image -> save();
+
+        $details = [
+            'title' => 'Mail from RRK network.',
+            'body' => 'This is the content of the mail.'
+        ];
+
+        $details = [
+            'title' => 'Dear QA coordinator, Mail from RRK network.',
+            'body' => 'There is have a new ideas was uploaded',
+            'by' => $data['author'],
+        ];
+        $mail = User::where('role', '3')->get('email');
+
+        Mail::to($mail)->send(new TestMail($details));
 
         #auth()->user()->posts()->create($data);
         auth()->user()->posts()->create([

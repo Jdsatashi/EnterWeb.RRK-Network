@@ -17,16 +17,16 @@
                 <tr>
                     <th>ID</th>
                     <th>Category name</th>
-                    <th>Create post</th>
+                    <th>Closure date</th>
+                    <th>Edit</th>
                     <th>Delete</th>
                 </tr>
                 @foreach($category as $categories)
                     <tr>
                         <td>{{ $categories->id }}</td>
                         <td>{{ $categories->catename }}</td>
-                        <td><a href="{{ route('create', $categories->id) }}">
-                                Create post
-                            </a></td>
+                        <td>{{ $categories->closure_date }}</td>
+                        <td><a href="{{ ('/category/edit/') }}{{ $categories->id }}" class="ps-5">Edit category</a></td>
                         <td>
                             <form action="{{ route('cate.deleted', $categories->id) }}" method="post" class="pe-md-2 pb-md-2">
                                 @csrf

@@ -9,12 +9,13 @@
                         <img src="{{ asset('img/logo-RRK.png') }}" alt=""
                         class="rounded-circle" style="max-width: 50px">
                     </div>
-                        <div class="ps-3 pt-2 fs-5 fw-bold d-flex"><a href="">
+                        <div class="ps-3 pt-2 fs-5 fw-bold"><a href="">
                                 <span class="text-danger"> {{ $post->author }}</span></a>
-                            @if(Auth::User()->id == $post->user_id)
-                                <a href="{{ ('/post/edit/') }}{{ $post->id }}" class="ps-5">Edit profile</a>
-                            @endif
                         </div>
+                        @if(Auth::User()->id == $post->user_id)
+                            <a href="{{ ('/post/edit/') }}{{ $post->id }}" class="ps-5">Edit idea</a>
+                        @endif
+                        <p class="ps-3">{{ $post->created_at->diffForHumans() }}</p>
                     </div>
                     <p class="pt-2 fs-5">{{ $post->content }}</p>
                 </div>

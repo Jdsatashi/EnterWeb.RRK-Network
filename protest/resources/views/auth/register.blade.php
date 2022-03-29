@@ -47,11 +47,8 @@
                             <div class="col-md-6">
 
                                 <select id="role" name="role" class="form-select" aria-label="Default select example">
-                                    <option selected>Select role</option>
-                                    <option value="1">Admin</option>
-                                    <option value="2">QA Manager</option>
-                                    <option value="3">QA Coordinator</option>
                                     <option value="4">Staff</option>
+                                    <option value="3">QA Coordinator</option>
                                 </select>
                                 @error('role')
                                 <span class="invalid-feedback" role="alert">

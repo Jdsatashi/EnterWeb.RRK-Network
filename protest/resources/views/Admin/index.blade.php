@@ -5,9 +5,7 @@
     <h3 class="p-5">This is the Admin page</h3>
         <a href="{{ route('register') }}">
             <button class="btn btn-primary">
-
             Create account
-
             </button>
         </a>
     <table id="tabledesign" class="p-md-2">
@@ -29,7 +27,7 @@
             <td>{{ $users->role }}</td>
             <td>{{ $users->phonenumber }}</td>
             <td>{{ $users->email }}</td>
-            <td><a href="/register/{{ $users->id }}">
+            <td><a href="{{ __('/register/') }}{{ $users->id }}">
                     <button class="btn-primary">Edit</button>
                 </a></td>
             <td>
