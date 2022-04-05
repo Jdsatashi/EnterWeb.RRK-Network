@@ -2,8 +2,8 @@
 @section('content')
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-md-6 pt-2">
-                <div class="card pt-2">
+            <div class="col-md-6 pt-4">
+                <div class="card">
                     <div class="card-header">{{ __('Edit category') }}</div>
                     <div class="card-body">
                         <form action="{{ __('/category/update/') }}{{ $category->id }}" enctype="multipart/form-data" method="post">
@@ -45,7 +45,7 @@
                             </div>
                             <div class="row mb-0 pb-3">
                                 <div class="col-md-4 offset-md-5">
-                                    <button type="submit" class="btn btn-primary">
+                                    <button type="submit" class="btn btn-info">
                                         {{ __('Edit') }}
                                     </button>
                                 </div>

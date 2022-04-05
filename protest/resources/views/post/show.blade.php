@@ -41,11 +41,12 @@
                                     <textarea name="comment" class="form-control" rows="3" autofocus></textarea>
                                     </div>
                                 </div>
-
+                                <div class="col-4 offset-4">
                                 <div class="row justify-content-center pt-1">
                                     <div>
-                                        <button type="submit" class="btn btn-primary">Comment</button>
+                                        <button type="submit" class="btn btn-success">Comment</button>
                                     </div>
+                                </div>
                                 </div>
                             </form>
 
@@ -85,22 +86,22 @@
                         <form action="{{ route('post.likes', $post->id) }}" method="post" class="pe-md-2 pb-md-2">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="btn btn-primary">Unlike</button>
+                            <button type="submit" class="btn btn-outline-warning">Unlike</button>
                         </form>
                     @elseif($post->dislikeBy(auth()->user()))
                         <form action="{{ route('post.dislikes', $post->id) }}" method="post" class="pe-md-2 pb-md-2">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="btn btn-primary">Undislike</button>
+                            <button type="submit" class="btn btn-outline-warning">Undislike</button>
                         </form>
                     @else
                         <form action="{{ route('post.likes', $post->id) }}" method="post" class="pe-md-2 pb-md-2">
                             @csrf
-                            <button type="submit" class="btn btn-primary">Like</button>
+                            <button type="submit" class="btn btn-outline-info">Like</button>
                         </form>
                         <form action="{{ route('post.dislikes', $post->id) }}" method="post" class="pe-md-2 pb-md-2">
                             @csrf
-                            <button type="submit" class="btn btn-primary">Dislike</button>
+                            <button type="submit" class="btn btn-outline-dark">Dislike</button>
                         </form>
                     @endif
 

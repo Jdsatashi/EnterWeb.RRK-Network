@@ -1,7 +1,9 @@
 @extends('layouts.app')
 @section('content')
     <div class="container-md">
-        <h2 class="p-5">This is the staff page</h2>
+        <div class="col-md-4 offset-md-4">
+            <h class="fs-2">This is the staff page</h>
+        </div>
     </div>
 
 @endsection

@@ -41,7 +41,7 @@ Route::get('/qamanager', [App\Http\Controllers\qamanagerController::class, 'inde
 Route::get('/qacoor', [App\Http\Controllers\qacoorController::class, 'index'])->name('qacoor')->middleware('qacoor');
 Route::get('/staff', [App\Http\Controllers\staffController::class, 'index'])->name('staff')->middleware('staff');
 
-Route::get('/profile/{user}', [App\Http\Controllers\ProfileController::class, 'index'])->name('profile.show');
+Route::get('/profile/{user}', [App\Http\Controllers\ProfileController::class, 'index'])->name('profile.show')->middleware('auth');;
 Route::get('/profile/{user}/edit', [App\Http\Controllers\ProfileController::class, 'edit'])->name('profile.edit');
 Route::put('/profile/{user}/update', [App\Http\Controllers\ProfileController::class, 'update'])->name('profile.update');
 
@@ -49,30 +49,35 @@ Route::get('/register/{user}', [App\Http\Controllers\Auth\RegisterController::cl
 Route::put('/register/{user}', [App\Http\Controllers\Auth\RegisterController::class, 'update'])->name('user.update');
 
 Route::get('/dashboard', [PostsController::class, 'index'])-> name('dashboard');
-Route::get('/post/create', [PostsController::class, 'create'])-> name('create') ;
-Route::post('/post', [PostsController::class, 'store'])->name('post');
-Route::get('/post/{post}', [PostsController::class, 'show'])->name('post.show');
-Route::get('/post/edit/{post}', [PostsController::class, 'edit'])->name('post.edit');
-Route::put('/post/update/{post}', [PostsController::class, 'update'])->name('post.update');
-Route::delete('/post/delete/{post}', [PostsController::class, 'destroy'])->name('post.delete');
-Route::get('/dashboard/top', [PostsController::class, 'topidea'])->name('post.top');
+Route::middleware(['auth'])->group(function(){
+    Route::get('/post/all', [PostsController::class, 'index2'])->name('post.list');
+    Route::get('/post/create', [PostsController::class, 'create'])-> name('create') ;
+    Route::post('/post', [PostsController::class, 'store'])->name('post');
+    Route::get('/post/{post}', [PostsController::class, 'show'])->name('post.show');
+    Route::get('/post/edit/{post}', [PostsController::class, 'edit'])->name('post.edit');
+    Route::put('/post/update/{post}', [PostsController::class, 'update'])->name('post.update');
+    Route::delete('/post/delete/{post}', [PostsController::class, 'destroy'])->name('post.delete');
+});
 
-Route::get('/category/list', [App\Http\Controllers\CategoryController::class, 'index'])-> name('cate.list');
-Route::get('/category/create', [App\Http\Controllers\CategoryController::class, 'create'])-> name('cate.create') ;
-Route::post('/category', [App\Http\Controllers\CategoryController::class, 'store']);
-Route::delete('/category/{category}/delete', [App\Http\Controllers\CategoryController::class, 'destroy'])->name('cate.deleted');
-Route::get('/category/edit/{category}', [App\Http\Controllers\CategoryController::class, 'edit'])->name('cate.edit');
-Route::put('/category/update/{category}', [App\Http\Controllers\CategoryController::class, 'update'])->name('cate.update');
 
-Route::post('comment/{post}', [App\Http\Controllers\CommentController::class, 'stores'])->name('comment.store');
+Route::middleware(['auth'])->group(function () {
+    Route::get('/category/list', [App\Http\Controllers\CategoryController::class, 'index'])->name('cate.list');
+    Route::get('/category/create', [App\Http\Controllers\CategoryController::class, 'create'])->name('cate.create')->middleware('qamanager');
+    Route::post('/category', [App\Http\Controllers\CategoryController::class, 'store']);
+    Route::delete('/category/{category}/delete', [App\Http\Controllers\CategoryController::class, 'destroy'])->name('cate.deleted')->middleware('qamanager');
+    Route::get('/category/edit/{category}', [App\Http\Controllers\CategoryController::class, 'edit'])->name('cate.edit')->middleware('qamanager');
+    Route::put('/category/update/{category}', [App\Http\Controllers\CategoryController::class, 'update'])->name('cate.update')->middleware('qamanager');
+});
 
-Route::get('/logout', [LogoutController::class, 'store']) -> name('logout');
+Route::post('comment/{post}', [App\Http\Controllers\CommentController::class, 'stores'])->name('comment.store')->middleware('auth');
 
-Route::post('/post/{post}/likes', [App\Http\Controllers\PostLikeController::class, 'store'])->name('post.likes');
-Route::delete('/post/{post}/likes', [App\Http\Controllers\PostLikeController::class, 'destroy'])->name('post.likesdel');
+Route::get('/logout', [LogoutController::class, 'store']) -> name('logout')->middleware('auth');
 
-Route::post('/post/{post}/dislikes', [App\Http\Controllers\DisLikeController::class, 'storing'])->name('post.dislikes');
-Route::delete('/post/{post}/dislikes', [App\Http\Controllers\DisLikeController::class, 'destroying'])->name('post.dislikes');
+Route::post('/post/{post}/likes', [App\Http\Controllers\PostLikeController::class, 'store'])->name('post.likes')->middleware('auth');
+Route::delete('/post/{post}/likes', [App\Http\Controllers\PostLikeController::class, 'destroy'])->name('post.likesdel')->middleware('auth');
+
+Route::post('/post/{post}/dislikes', [App\Http\Controllers\DisLikeController::class, 'storing'])->name('post.dislikes')->middleware('auth');
+Route::delete('/post/{post}/dislikes', [App\Http\Controllers\DisLikeController::class, 'destroying'])->name('post.dislikes')->middleware('auth');
 
 Route::get('/sendmail', [\App\Http\Controllers\MailController::class, 'sendEmail']);
 

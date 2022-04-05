@@ -67,21 +67,44 @@
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ route('admin') }}">Admin page</a>
                                 </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('dashboard') }}">Dashboard</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('create') }}">Create post</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('cate.list') }}">Category list</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('post.list') }}">Post list</a>
+                                </li>
+                            @elseif(Auth::user()->role == 4)
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{{ route('dashboard') }}">Dashboard</a>
+                                    </li>
+
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{{ route('create') }}">Upload idea</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{{ route('post.list') }}">Idea list</a>
+                                    </li>
                             @else
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('dashboard') }}">Dashboard</a>
                             </li>
 
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('create') }}">Create post</a>
+                                <a class="nav-link" href="{{ route('create') }}">Upload idea</a>
                             </li>
-
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('cate.create') }}">Create category</a>
-                                </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{{ route('post.list') }}">Idea list</a>
+                                    </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ route('cate.list') }}">Category list</a>
                                 </li>
+
 
                             @endif
                         @endauth

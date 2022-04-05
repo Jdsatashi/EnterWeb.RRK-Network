@@ -6,7 +6,7 @@
             @method('PUT')
 
             <div class="row justify-content-center">
-                <div class="col-8">
+                <div class="col-8 pt-4">
                     <div class="row mb-3">
                         <label for="titles" class="col-md-4 col-form-label">Title</label>
 

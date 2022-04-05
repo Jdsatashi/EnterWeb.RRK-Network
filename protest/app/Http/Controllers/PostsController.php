@@ -18,10 +18,7 @@ use PhpOffice\PhpWord\TemplateProcessor;
 
 class PostsController extends Controller
 {
-    public function __construct()
-    {
-        $this-> middleware('auth');
-    }
+
 
     public function index()
     {
@@ -34,25 +31,24 @@ class PostsController extends Controller
         ]);
     }
 
-    public function topidea(Like $like, Post $post, User $user)
+    public function __construct()
+    {
+        $this-> middleware('auth');
+    }
+
+    public function index2()
     {
         #$date = new Carbon(request('date'));
-
-
-            /*$like = $post->likes->count();
-            DB::table('Post')->where('id', $post->id)->chunk(100, function($user) {
-
-            });*/
-        #SELECT count(*), user_id FROM likes GROUP BY user_id ORDER BY count(*) DESC
-
-            /* 'user' => ['array', function($field, $value){
-                $count = User::Query()->whereIn('id', $value)->count();
-                return $count($value) === $count;
-            }]; */
-
-        $post = Likes::groupby('post_id')->orderby('count', 'DESC')->count('*');
-
-        return view('post.dashboardlike', compact('post'));
+        if(auth()->user()->role == 4) {
+            $user = auth()->user()->id;
+            $post = Post::where('user_id', $user)->get();
+        }
+        else{
+            $post = Post::paginate(5);
+        }
+        return view('post.postlist', [
+            'post' => $post,
+        ]);
     }
 
     public function create()
@@ -98,7 +94,7 @@ class PostsController extends Controller
             #'image' => $image,
             'file' => $file,
         ]);
-        return redirect('/dashboard');
+        return redirect('/dashboard')->with('message', 'Post uploaded');;
     }
 
     public function show(Post $post, User $user)
@@ -134,9 +130,10 @@ class PostsController extends Controller
     }
 
     public function destroy(Post $post, User $user){
-        $data = Post::where('id', $post->id);
-        $data -> delete();
-        $u = Auth::user()->id;
-        return redirect("/profile/{u}");
+        if(Auth::User()->id == $post->user_id) {
+            $data = Post::where('id', $post->id);
+            $data->delete();
+            return redirect("/post/all")->with('message', 'Post Deleted');
+        }
 }
 }

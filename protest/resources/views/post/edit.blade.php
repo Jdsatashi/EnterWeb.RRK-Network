@@ -2,14 +2,14 @@
 @section('content')
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-md-8">
-                <div class="card pt-2">
+            <div class="col-md-8 pt-4">
+                <div class="card">
                         <div class="card-header">{{ __('Update post') }}</div>
                     <div class="pt-2" style="margin-left: auto; margin-right: auto;">
                         <form action="{{ __('/post/delete/') }}{{ $post->id }}" method="post" class="pe-md-2 pb-md-2">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="btn btn-primary">Delete</button>
+                            <button type="submit" class="btn btn-outline-danger">Delete</button>
                         </form>
                     </div>
 
@@ -94,7 +94,7 @@
 
                             <div class="row justify-content-center pt-2">
                                 <div class="col-4 offset-3">
-                                    <button type="submit" class="btn btn-primary">Post</button>
+                                    <button type="submit" class="btn btn-info">Post</button>
                                 </div>
                             </div>
                         </form>

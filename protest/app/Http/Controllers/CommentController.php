@@ -25,7 +25,7 @@ class CommentController extends Controller
             'body' => 'There is have a new comment on your post',
             'by' => $data['writer'],
         ];
-        $mail = User::where('email', Auth::User()->email)->get('email');
+        $mail = User::where('email', $post->user->email)->get('email');
 
         Mail::to($mail)->send(new TestMail($details));
         $post->comments()->create([

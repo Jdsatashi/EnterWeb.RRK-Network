@@ -22,8 +22,6 @@ class CreatePostsTable extends Migration
             #$table->text('image')->nullable();
             $table->string('file')->nullable();
             $table->timestamps();
-
-            $table->engine = 'InnoDB';
         });
         Schema::table('posts', function(Blueprint $table){
         });

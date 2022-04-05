@@ -2,8 +2,8 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-8">
-           <div class="card pt-2">
+        <div class="col-md-8 pt-4">
+           <div class="card">
               <div class="card-header">{{ __('Post idea') }}</div>
                 <div class="card-body">
                     <form action="{{ __('/post') }}" enctype="multipart/form-data" method="post">
@@ -86,7 +86,7 @@
         </div>
                         <div class="row justify-content-center pt-3">
                             <div class="col-4 offset-md-2">
-                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                    <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#exampleModal">
                                         Post
                                     </button>
                                     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -103,8 +103,8 @@
                                                     4. Your QA Coordinator would receive a notifition on your post.<br>
                                                 </div>
                                                 <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                                                    <button type="submit" class="btn btn-primary">Allow and Post</button>
+                                                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cancel</button>
+                                                    <button type="submit" class="btn btn-outline-info">Allow and Post</button>
                                                 </div>
                                             </div>
                                         </div>

@@ -4,7 +4,7 @@
     <div class="col-md-12">
     <h3 class="p-5">This is the Admin page</h3>
         <a href="{{ route('register') }}">
-            <button class="btn btn-primary">
+            <button class="btn btn-dark">
             Create account
             </button>
         </a>
@@ -20,6 +20,7 @@
             <th>Delete</th>
         </tr>
         @foreach($user as $users)
+            @if($users->role == 2)
         <tr>
             <td>{{ $users->id }}</td>
             <td>{{ $users->name }}</td>
@@ -27,17 +28,41 @@
             <td>{{ $users->role }}</td>
             <td>{{ $users->phonenumber }}</td>
             <td>{{ $users->email }}</td>
-            <td><a href="{{ __('/register/') }}{{ $users->id }}">
-                    <button class="btn-primary">Edit</button>
+            <td><a href="">
+                    <button class="btn-info">No</button>
                 </a></td>
             <td>
-                <form action="{{ route('user.delete', $users->id) }}" method="post" class="pe-md-2 pb-md-2">
+                <a>
+                <form action="{{ route('user.delete', $users->id) }}" method="post">
                     @csrf
                     @method('DELETE')
-                    <button type="submit" class="btn-primary">Delete</button>
+                    <button type="submit" class="btn-danger">Delete</button>
                 </form>
+                </a>
             </td>
         </tr>
+            @else
+                <tr>
+                    <td>{{ $users->id }}</td>
+                    <td>{{ $users->name }}</td>
+                    <td>{{ $users->username }}</td>
+                    <td>{{ $users->role }}</td>
+                    <td>{{ $users->phonenumber }}</td>
+                    <td>{{ $users->email }}</td>
+                    <td><a href="{{ __('/register/') }}{{ $users->id }}">
+                            <button class="btn-info">Edit</button>
+                        </a></td>
+                    <td>
+                        <a>
+                            <form action="{{ route('user.delete', $users->id) }}" method="post">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn-danger">Delete</button>
+                            </form>
+                        </a>
+                    </td>
+                </tr>
+            @endif
         @endforeach
     </table>
 

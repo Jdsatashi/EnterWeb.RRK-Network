@@ -5,8 +5,8 @@
             @csrf
 
             <div class="row justify-content-center">
-                <div class="col-md-6 pt-2">
-                    <div class="card pt-2">
+                <div class="col-md-6 pt-4">
+                    <div class="card">
                         <div class="card-header">{{ __('Create category') }}</div>
                         <div class="card-body">
                         <label for="catename" class="col-md-4 col-form-label">Category topic</label>
@@ -23,7 +23,7 @@
 
                         <div class="row mb-0 pb-3">
                             <div class="col-md-4 offset-md-5">
-                                <button type="submit" class="btn btn-primary">
+                                <button type="submit" class="btn btn-info">
                                     {{ __('Create') }}
                                 </button>
                             </div>

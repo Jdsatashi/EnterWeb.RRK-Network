@@ -2,6 +2,11 @@
 
 @section('content')
 <div class="container">
+    @if(session()->has('message'))
+        <div class="alert alert-success">
+            {{ session()->get('message') }}
+        </div>
+    @endif
     <div class="row pt-2">
         <div class="col-6 d-flex justify-content-center offset-3">
             <h3>Ideas available: {{ $post->Total() }}</h3>
@@ -9,7 +14,7 @@
     </div>
     @foreach($post as $posts)
 
-        <div class="col-md-6 offset-md-3 border border-5">
+        <div class="col-md-6 offset-md-3 border border-5 pt-2 pb-2">
             <div class="row pt-2">
                 <div class="col-md-8 offset-md-2">
                     <div class="d-flex">
@@ -33,7 +38,7 @@
                     <div class="fs-5">
                         <p>{{ $posts->content }}</p>
                     </div>
-                    <a href="{{ __('/post') }}/{{ $posts->id }}"><button class="btn btn-outline-danger"> Click to view all idea</button></a>
+                    <a href="{{ __('/post') }}/{{ $posts->id }}"><button class="btn btn-outline-warning"> Click to view all idea</button></a>
                 </div>
             </div>
         </div>
@@ -41,7 +46,9 @@
 
         <div class="row">
             <div class="col-12 d-flex justify-content-center">
-                {{ $post->links() }}
+                <div class="pt-3">
+                    {{ $post->links() }}
+                </div>
             </div>
         </div>
 

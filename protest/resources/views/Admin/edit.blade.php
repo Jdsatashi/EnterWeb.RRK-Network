@@ -2,8 +2,8 @@
 
 @section('content')
     <div class="container">
-        <div class="row justify-content-center pt-4">
-            <div class="col-md-8">
+        <div class="row justify-content-center">
+            <div class="col-md-8 pt-4">
                 <div class="card">
                     <div class="card-header">{{ __('Update account') }}</div>
 
@@ -42,9 +42,6 @@
                                     <div class="col-md-6">
 
                                         <select id="role" name="role" class="form-select" aria-label="Default select example">
-                                            <option selected>Select role</option>
-                                            <option value="1">Admin</option>
-                                            <option value="2">QA Manager</option>
                                             <option value="3">QA Coordinator</option>
                                             <option value="4">Staff</option>
                                         </select>
@@ -150,7 +147,7 @@
 
                                 <div class="row mb-0">
                                     <div class="col-md-6 offset-md-4">
-                                        <button type="submit" class="btn btn-primary">
+                                        <button type="submit" class="btn btn-info">
                                             {{ __('Update') }}
                                         </button>
                                     </div>
