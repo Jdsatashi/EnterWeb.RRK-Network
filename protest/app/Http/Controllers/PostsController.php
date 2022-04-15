@@ -41,7 +41,7 @@ class PostsController extends Controller
         #$date = new Carbon(request('date'));
         if(auth()->user()->role == 4) {
             $user = auth()->user()->id;
-            $post = Post::where('user_id', $user)->get();
+            $post = Post::where('user_id', $user)->paginate(5);
         }
         else{
             $post = Post::paginate(5);
@@ -104,6 +104,9 @@ class PostsController extends Controller
 
     public function edit(Post $post, User $user)
     {
+        if(auth()->user()->role == 1){
+            return view('post.edit', compact('post'));
+        }
         if(auth()->user()->role == 2){
             return view('post.edit', compact('post'));
         }

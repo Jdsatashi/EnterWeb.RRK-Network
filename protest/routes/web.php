@@ -62,11 +62,11 @@ Route::middleware(['auth'])->group(function(){
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/category/list', [App\Http\Controllers\CategoryController::class, 'index'])->name('cate.list');
-    Route::get('/category/create', [App\Http\Controllers\CategoryController::class, 'create'])->name('cate.create')->middleware('qamanager');
+    Route::get('/category/create', [App\Http\Controllers\CategoryController::class, 'create'])->name('cate.create');
     Route::post('/category', [App\Http\Controllers\CategoryController::class, 'store']);
-    Route::delete('/category/{category}/delete', [App\Http\Controllers\CategoryController::class, 'destroy'])->name('cate.deleted')->middleware('qamanager');
-    Route::get('/category/edit/{category}', [App\Http\Controllers\CategoryController::class, 'edit'])->name('cate.edit')->middleware('qamanager');
-    Route::put('/category/update/{category}', [App\Http\Controllers\CategoryController::class, 'update'])->name('cate.update')->middleware('qamanager');
+    Route::delete('/category/{category}/delete', [App\Http\Controllers\CategoryController::class, 'destroy'])->name('cate.deleted');
+    Route::get('/category/edit/{category}', [App\Http\Controllers\CategoryController::class, 'edit'])->name('cate.edit');
+    Route::put('/category/update/{category}', [App\Http\Controllers\CategoryController::class, 'update'])->name('cate.update');
 });
 
 Route::post('comment/{post}', [App\Http\Controllers\CommentController::class, 'stores'])->name('comment.store')->middleware('auth');

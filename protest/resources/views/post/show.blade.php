@@ -63,9 +63,6 @@
                         <div class="mr-auto p-2">
                             <h4>Comments ({{ $post->comments->count() }})</h4>
                         </div>
-                        <div class="ps-2">
-                            {{ $comment->links() }}
-                        </div>
                     </div>
                     @foreach($comment as $cmt)
                         <div class="border boder-2 p-md-1">
@@ -73,7 +70,11 @@
                         <p1>{{ $cmt->comment }}</p1> <br>
                         </div>
                     @endforeach
-
+                    <div class="col-12 d-flex justify-content-center">
+                    <div class="ps-2">
+                        {{ $comment->links() }}
+                    </div>
+                    </div>
                 </div>
             </div>
             </div>

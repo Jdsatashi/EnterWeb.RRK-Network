@@ -27,6 +27,7 @@
                             </div>
                         </div>
                     </div>
+                    @if(Auth()->user()->role == 1)
                             <div class="row justify-content-center">
                                 <div class="col-6">
                                     <div class="row mb-3">
@@ -43,6 +44,7 @@
                                     </div>
                                 </div>
                             </div>
+                    @endif
                             <div class="row mb-0 pb-3">
                                 <div class="col-md-4 offset-md-5">
                                     <button type="submit" class="btn btn-info">

@@ -20,28 +20,6 @@
             <th>Delete</th>
         </tr>
         @foreach($user as $users)
-            @if($users->role == 2)
-        <tr>
-            <td>{{ $users->id }}</td>
-            <td>{{ $users->name }}</td>
-            <td>{{ $users->username }}</td>
-            <td>{{ $users->role }}</td>
-            <td>{{ $users->phonenumber }}</td>
-            <td>{{ $users->email }}</td>
-            <td><a href="">
-                    <button class="btn-info">No</button>
-                </a></td>
-            <td>
-                <a>
-                <form action="{{ route('user.delete', $users->id) }}" method="post">
-                    @csrf
-                    @method('DELETE')
-                    <button type="submit" class="btn-danger">Delete</button>
-                </form>
-                </a>
-            </td>
-        </tr>
-            @else
                 <tr>
                     <td>{{ $users->id }}</td>
                     <td>{{ $users->name }}</td>
@@ -62,7 +40,7 @@
                         </a>
                     </td>
                 </tr>
-            @endif
+
         @endforeach
     </table>
 

@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('content')
-    @if(Auth()->user()->role == 4)
+    @if(Auth()->user()->role == 3)
     <div class="container-md">
         <div class="col-md-12">
             <h3 class="p-3">This is the Ideas list</h3>
@@ -20,8 +20,7 @@
                     <th>Create at</th>
                     <th>Sum like & dislike</th>
                     <th>Amount comment</th>
-                    <th>Edit</th>
-                    <th>Delete</th>
+
                 </tr>
                 @foreach($post as $posts)
                     <tr>
@@ -39,14 +38,6 @@
                         </td>
                         <td>{{ $posts->comments->count() }}</td>
 
-                        <td><a href="{{ ('/post/edit/') }}{{ $posts->id }}">Edit post</a></td>
-                        <td>
-                            <form action="{{ route('post.delete', $posts->id) }}" method="post">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn-danger">Delete</button>
-                            </form>
-                        </td>
                     </tr>
                 @endforeach
             </table>
@@ -77,6 +68,8 @@
                         <th>Create at</th>
                         <th>Sum like & dislike</th>
                         <th>Amount comment</th>
+                        <th>Edit</th>
+                        <th>Delete</th>
                     </tr>
                     @foreach($post as $posts)
                         <tr>
@@ -93,6 +86,14 @@
                                 {{ $value }}
                             </td>
                             <td>{{ $posts->comments->count() }}</td>
+                            <td><a href="{{ ('/post/edit/') }}{{ $posts->id }}">Edit post</a></td>
+                            <td>
+                                <form action="{{ route('post.delete', $posts->id) }}" method="post">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn-danger">Delete</button>
+                                </form>
+                            </td>
                         </tr>
                     @endforeach
                 </table>

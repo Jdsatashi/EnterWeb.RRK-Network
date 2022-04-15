@@ -23,7 +23,7 @@
         <div class="pt-2">Phone numbers: {{ $user->phonenumber }} </div>
         <div class="pt-1">Title: {{ $user->profile->titles }} </div>
       <div class="pt-1">Description: {{ $user->profile->description }} </div>
-        <div class="pt-1">Description: {{ $user->posts->count() }} </div>
+        <div class="pt-1">Ideas posted: {{ $user->posts->count() }} </div>
     </div>
   </div>
 

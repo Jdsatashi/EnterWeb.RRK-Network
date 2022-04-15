@@ -30,18 +30,30 @@ class CategoryController extends Controller
 
     public function update(Category $category)
     {
-        $data = request()->validate([
-            'catename' => 'required',
-            'closure_date' => 'required',
-        ]);
-
-        $cdate = $data['closure_date'];
-        $date = Carbon::createFromFormat('Y-m-d', $cdate);
-        $category -> Update([
-            'catename' => $data['catename'],
-            'closure_date' => $date,
-        ]);
-        return redirect()->route('cate.list');
+        if(auth()->user()->role == 1)
+        {
+            $data = request()->validate([
+                'catename' => 'required',
+                'closure_date' => 'required',
+            ]);
+            $cdate = $data['closure_date'];
+            $date = Carbon::createFromFormat('Y-m-d', $cdate);
+            $category -> Update([
+                'catename' => $data['catename'],
+                'closure_date' => $date,
+            ]);
+            return redirect()->route('cate.list');
+        }
+        elseif(auth()->user()->role == 2)
+        {
+            $data = request()->validate([
+                'catename' => 'required',
+            ]);
+            $category -> Update([
+                'catename' => $data['catename']
+            ]);
+            return redirect()->route('cate.list');
+        }
     }
 
     public function destroy($id)

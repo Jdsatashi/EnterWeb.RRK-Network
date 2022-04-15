@@ -42,6 +42,8 @@
                                     <div class="col-md-6">
 
                                         <select id="role" name="role" class="form-select" aria-label="Default select example">
+                                            <option value="1">Admin</option>
+                                            <option value="2">QA Manager</option>
                                             <option value="3">QA Coordinator</option>
                                             <option value="4">Staff</option>
                                         </select>
@@ -107,11 +109,20 @@
                                 </div>
 
                                 <div class="row mb-3">
-                                    <label for="username" class="col-md-4 col-form-label text-md-end">{{ __('Username') }}</label>
-
+                                    <label for="username" class="col-md-4 col-form-label text-md-end">{{ __('Role') }}</label>
+                                    @if($user->role == 4)
                                     <div class="col-md-6">
-                                        <div class="form-control">{{ old('role') ?? $user->role }} </div>
+                                        <div class="form-control">Staff </div>
                                     </div>
+                                        @elseif($user->role == 3)
+                                            <div class="col-md-6">
+                                                <div class="form-control">QA Coordinator</div>
+                                            </div>
+                                    @else
+                                        <div class="col-md-6">
+                                            <div class="form-control">QA Manager</div>
+                                        </div>
+                                        @endif
                                 </div>
 
                                 <div class="row mb-3">
