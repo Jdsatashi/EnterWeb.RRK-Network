@@ -81,4 +81,10 @@ Route::delete('/post/{post}/dislikes', [App\Http\Controllers\DisLikeController::
 
 Route::get('/sendmail', [\App\Http\Controllers\MailController::class, 'sendEmail']);
 
+Route::get('/close/show', [App\Http\Controllers\CloseController::class, 'index'])->name('close.show');
+#Route::get('/close/create', [App\Http\Controllers\CloseController::class, 'create'])->name('close.create');
+#Route::post('/close', [App\Http\Controllers\CloseController::class, 'store']);
+#Route::delete('/close/{close}/delete', [App\Http\Controllers\CloseController::class, 'destroy'])->name('cate.deleted');
+Route::get('/close/edit/{close}', [App\Http\Controllers\CloseController::class, 'edit'])->name('close.edit');
+Route::put('/close/update/{close}', [App\Http\Controllers\CloseController::class, 'update'])->name('close.update');
 

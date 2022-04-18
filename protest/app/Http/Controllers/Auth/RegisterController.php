@@ -19,6 +19,7 @@ class RegisterController extends Controller
     public function store(Request $request)
     {
         $data = request()->validate([
+            'department_id' => 'integer',
             'name' => ['required', 'string', 'max:255'],
             'username' => ['required', 'string', 'max:255'],
             'role' => ['required', 'integer', 'max:255'],
@@ -28,6 +29,7 @@ class RegisterController extends Controller
         ]);
 
         User::create([
+            'department_id' => $data['department_id'],
             'name' => $data['name'],
             'username' => $data['username'],
             'role' => $data['role'],
@@ -54,6 +56,7 @@ class RegisterController extends Controller
     {
         if(auth()->user()->role == 1) {
             $data = request() -> validate ([
+                'department_id' => 'integer',
                 'name' => ['required', 'string', 'max:255'],
                 'role' => [ 'required' ,'integer', 'max:255'],
                 'phonenumber'=> ['required', 'string', 'min:8', 'max:14'],

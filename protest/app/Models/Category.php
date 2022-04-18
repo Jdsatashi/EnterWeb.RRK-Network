@@ -11,7 +11,6 @@ class Category extends Model
 
     protected $fillable = [
         'catename',
-        'closure_date'
     ];
 
     public function post(){

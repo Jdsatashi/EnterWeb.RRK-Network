@@ -10,7 +10,24 @@
                 <div class="card-body">
                     <form method="POST" action="{{ route('register') }}">
                         @csrf
+                        <div class="row mb-3">
+                            <label for="role" class="col-md-4 col-form-label text-md-end">{{ __('Role') }}</label>
 
+                            <div class="col-md-6">
+
+                                <select id="department_id" name="department_id" class="form-select" aria-label="Default select example">
+                                    <option value="1">Admin and Manager</option>
+                                    <option value="2">Department A</option>
+                                    <option value="3">Department B</option>
+                                    <option value="4">Department C</option>
+                                </select>
+                                @error('department_id')
+                                <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
                         <div class="row mb-3">
                             <label for="name" class="col-md-4 col-form-label text-md-end">{{ __('Name') }}</label>
 

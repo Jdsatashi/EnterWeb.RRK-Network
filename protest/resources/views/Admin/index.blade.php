@@ -16,6 +16,7 @@
             <th>Role</th>
             <th>Phonenumber</th>
             <th>Email</th>
+            <th>Department</th>
             <th>Edit</th>
             <th>Delete</th>
         </tr>
@@ -27,6 +28,7 @@
                     <td>{{ $users->role }}</td>
                     <td>{{ $users->phonenumber }}</td>
                     <td>{{ $users->email }}</td>
+                    <th>{{ $users->department_id }}</th>
                     <td><a href="{{ __('/register/') }}{{ $users->id }}">
                             <button class="btn-info">Edit</button>
                         </a></td>

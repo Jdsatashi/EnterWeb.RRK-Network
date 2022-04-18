@@ -19,39 +19,48 @@
                     </div>
                     <p class="pt-2 fs-5">{{ $post->content }}</p>
                 </div>
+                @php
+                    $now = Illuminate\Support\Carbon::now()->format('Y-m-d');
+                    $close = App\Models\Close::find(1);
+                    $date = $close->closure_date;
+                @endphp
 
-                <div class="border border-2 p-3">
-                    <h4>Write Comments</h4>
-                    <div class="mb-3">
-                            <form action="{{ route('comment.store', $post->id) }}" method="post">
-                                @csrf
+                        @if(!$date >= $now)
+                            <h3 class="text-danger">You can't comment rightnow</h3>
+                        @else
+                            <div class="border border-2 p-3">
+                                <h4>Write Comments</h4>
                                 <div class="mb-3">
+                                    <form action="{{ route('comment.store', $post->id) }}" method="post">
+                                        @csrf
+                                        <div class="mb-3">
 
-                                    <label for="writer" class="col-md-4 col-form-label">{{ __('Writer name') }}</label>
+                                            <label for="writer" class="col-md-4 col-form-label">{{ __('Writer name') }}</label>
 
-                                    <select id="writer" name="writer" class="form-select" aria-label="Default select example">
-                                        <option value="{{ __('anonymous') }}">
-                                            Anonymous
-                                        </option>
-                                        <option value="{{ Auth::user()->username }}">
-                                            {{ Auth::user()->username }}
-                                        </option>
-                                    </select>
-                                    <div class="pt-2">
-                                    <textarea name="comment" class="form-control" rows="3" autofocus></textarea>
-                                    </div>
-                                </div>
-                                <div class="col-4 offset-4">
-                                <div class="row justify-content-center pt-1">
-                                    <div>
-                                        <button type="submit" class="btn btn-success">Comment</button>
-                                    </div>
-                                </div>
-                                </div>
-                            </form>
+                                            <select id="writer" name="writer" class="form-select" aria-label="Default select example">
+                                                <option value="{{ __('anonymous') }}">
+                                                    Anonymous
+                                                </option>
+                                                <option value="{{ Auth::user()->username }}">
+                                                    {{ Auth::user()->username }}
+                                                </option>
+                                            </select>
+                                            <div class="pt-2">
+                                                <textarea name="comment" class="form-control" rows="3" autofocus></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="col-4 offset-4">
+                                            <div class="row justify-content-center pt-1">
+                                                <div>
+                                                    <button type="submit" class="btn btn-success">Comment</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
 
-                        </div>
-                    </div>
+                                </div>
+                            </div>
+                @endif
                 <div class="pt-md-2">
                 <div class="border border-3 p-md-2">
                     @php

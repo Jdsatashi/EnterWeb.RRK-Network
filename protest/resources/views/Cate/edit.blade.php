@@ -9,8 +9,6 @@
                         <form action="{{ __('/category/update/') }}{{ $category->id }}" enctype="multipart/form-data" method="post">
                             @csrf
                         @method('PUT')
-
-                    </div>
                     <div class="row justify-content-center">
                         <div class="col-6">
                             <div class="row mb-3">
@@ -27,16 +25,15 @@
                             </div>
                         </div>
                     </div>
-                    @if(Auth()->user()->role == 1)
                             <div class="row justify-content-center">
                                 <div class="col-6">
                                     <div class="row mb-3">
-                                        <label for="closure_date" class="col-md-4 col-form-label">Closure date</label>
+                                        <label for="catename" class="col-md-4 col-form-label">Category topic</label>
 
-                                        <input id="closure_date" type="date" class="form-control @error('closure_date') is-invalid @enderror"
-                                               name="closure_date" value="{{ old('closure_date') }}" required autocomplete="closure_date" autofocus>
+                                        <input id="catename" type="text" class="form-control @error('catename') is-invalid @enderror"
+                                               name="catename" value="{{ old('catename') ?? $category->catename }}" required autocomplete="catename" autofocus>
 
-                                        @error('closure_date')
+                                        @error('catename')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
@@ -44,7 +41,7 @@
                                     </div>
                                 </div>
                             </div>
-                    @endif
+
                             <div class="row mb-0 pb-3">
                                 <div class="col-md-4 offset-md-5">
                                     <button type="submit" class="btn btn-info">

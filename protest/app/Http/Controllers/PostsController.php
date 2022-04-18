@@ -63,37 +63,50 @@ class PostsController extends Controller
             'author' => 'required',
             'content' => 'required',
             #'image',
-            'file' => 'required',
+            'file'
         ]);
-        $fi = request()->file->getMimeType();
-        $file = request('file')-> store('uploads','public');
-        #image/jpeg
-                #$imagePath = request('image')-> store('uploads','public');
-                #$image = Image::make(public_path("storage/{$imagePath}"))->fit(1000,1000);
-                #$image -> save();
 
-        $details = [
-            'title' => 'Mail from RRK network.',
-            'body' => 'This is the content of the mail.'
-        ];
+        $req = request();
+        if ($req->hasFile('file'))
+        {
+            $file = request('file')-> store('uploads','public');
+            #image/jpeg
+            #$imagePath = request('image')-> store('uploads','public');
+            #$image = Image::make(public_path("storage/{$imagePath}"))->fit(1000,1000);
+            #$image -> save();
+            auth()->user()->posts()->create([
+                'category_id' => $data['category_id'],
+                'content' => $data['content'],
+                'author' => $data['author'],
+                #'image' => $image,
+                'file' => $file,
+            ]);
+        }
+        else{
+            auth()->user()->posts()->create([
+                'category_id' => $data['category_id'],
+                'content' => $data['content'],
+                'author' => $data['author'],
+                #'image' => $image,
+            ]);
+        }
+
 
         $details = [
             'title' => 'Dear QA coordinator, Mail from RRK network.',
             'body' => 'There is have a new ideas was uploaded',
             'by' => $data['author'],
         ];
-        $mail = User::where('role', '3')->get('email');
+        if(auth()->user()->role == 4)
+        {
+            $mail = User::where('role', '3')->get('email');
 
-        Mail::to($mail)->send(new TestMail($details));
+            Mail::to($mail)->send(new TestMail($details));
+
+        }
 
         #auth()->user()->posts()->create($data);
-        auth()->user()->posts()->create([
-            'category_id' => $data['category_id'],
-            'content' => $data['content'],
-            'author' => $data['author'],
-            #'image' => $image,
-            'file' => $file,
-        ]);
+
         return redirect('/dashboard')->with('message', 'Post uploaded');;
     }
 

@@ -79,11 +79,10 @@
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ route('post.list') }}">Post list</a>
                                 </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('close.show') }}">Edit closure date</a>
+                                </li>
                             @elseif(Auth::user()->role == 4)
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="{{ route('dashboard') }}">Dashboard</a>
-                                    </li>
-
                                     <li class="nav-item">
                                         <a class="nav-link" href="{{ route('create') }}">Upload idea</a>
                                     </li>

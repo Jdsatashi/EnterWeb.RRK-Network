@@ -9,6 +9,8 @@
                 $cate = App\Models\Category::all();
                 $like = App\Models\Like::all();
                 $dislike = App\Models\Dislike::all();
+                $user1 = App\Models\User::where('department_id', '==', '2');
+                $user2 = App\Models\User::where('department_id', '==', '3');
             @endphp
             <div class="row border border-4">
                 <div class="col-8 border border-2">

@@ -37,15 +37,10 @@
                                     <label for="author" class="col-md-4 col-form-label">{{ __('Category') }}</label>
 
                                     <select id="category_id" name="category_id" class="form-select" aria-label="Default select example">
-                                        @php
-                                            $now = Illuminate\Support\Carbon::now()->format('Y-m-d');
-                                        @endphp
                                         @foreach(\App\Models\Category::all() as $category)
-                                            @if($category->closure_date > $now)
                                             <option value="{{ $category->id }}">
-                                            {{ $category->catename }} --- Closure date: {{ $category->closure_date }}
+                                            {{ $category->catename }}
                                             </option>
-                                            @endif
                                         @endforeach
                                     </select>
 
@@ -76,19 +71,24 @@
                     <label for="file" class="col-md-4 col-form-label">Post File</label>
 
                     <input id="file" type="file" class="form-control @error('file') is-invalid @enderror"
-                           name="file"file>
-
-                    @error('file')
-                    <strong>{{ $errors->first('file') }}</strong>
-                    @enderror
+                           name="file">
                 </div>
             </div>
         </div>
+                        @php
+                            $now = Illuminate\Support\Carbon::now()->format('Y-m-d');
+                            $close = App\Models\Close::find(1);
+                            $date = $close->closure_date;
+                        @endphp
                         <div class="row justify-content-center pt-3">
-                            <div class="col-4 offset-md-2">
+                            <div class="col-6 offset-md-3">
+                                @if($date >= $now)
                                     <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#exampleModal">
                                         Post
                                     </button>
+                                @else
+                                    <h3 class="btn btn-outline-danger">You can't submit right now</h3>
+                                @endif
                                     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                         <div class="modal-dialog">
                                             <div class="modal-content">

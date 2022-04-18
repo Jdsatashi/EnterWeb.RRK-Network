@@ -20,10 +20,8 @@ class CategoryController extends Controller
         $data = request()->validate([
             'catename' => 'required',
         ]);
-        $date = Carbon::tomorrow();
         Category::Create([
             'catename' => $data['catename'],
-            'closure_date' => $date,
         ]);
         return redirect()->route('cate.list');
     }
@@ -34,13 +32,9 @@ class CategoryController extends Controller
         {
             $data = request()->validate([
                 'catename' => 'required',
-                'closure_date' => 'required',
             ]);
-            $cdate = $data['closure_date'];
-            $date = Carbon::createFromFormat('Y-m-d', $cdate);
             $category -> Update([
                 'catename' => $data['catename'],
-                'closure_date' => $date,
             ]);
             return redirect()->route('cate.list');
         }
